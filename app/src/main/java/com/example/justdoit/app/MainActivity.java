@@ -1,5 +1,6 @@
 package com.example.justdoit.app;
 
+import android.content.Intent;
 import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -18,13 +19,6 @@ public class MainActivity extends ActionBarActivity {
     private TextView suggestedActivityTextView;
     private Button suggestActivityButton;
     private Button doItButton;
-    private Chronometer timeSpentChronometer;
-
-    private boolean isTimerActive = false;
-    private static final String START_TICK = "START_TICK";
-    private static final String LAST_SUSPEND_TICK = "LAST_SUSPEND_TICK";
-    private long startTick = 0L;
-    private long lastSuspendTick = 0L;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +28,6 @@ public class MainActivity extends ActionBarActivity {
         suggestedActivityTextView = (TextView) findViewById(R.id.suggestedActivityTextView);
         suggestActivityButton = (Button) findViewById(R.id.suggestActivityButton);
         doItButton = (Button) findViewById(R.id.doItButton);
-        timeSpentChronometer = (Chronometer) findViewById(R.id.timeSpentChronometer);
 
 
         // Set suggested activity to something random on load
@@ -45,15 +38,8 @@ public class MainActivity extends ActionBarActivity {
         // Stuff specific to initial startup or restoration
         if( savedInstanceState == null ) {
             // Just starting
-            isTimerActive = false;
         } else {
             // App is being restored
-            startTick = savedInstanceState.getLong(START_TICK);
-            lastSuspendTick = savedInstanceState.getLong(LAST_SUSPEND_TICK);
-            if( isTimerActive ) {
-                timeSpentChronometer.setBase(SystemClock.elapsedRealtime());
-                timeSpentChronometer.start();
-            }
         }
 
         setButtonOnClickListeners();
@@ -63,8 +49,6 @@ public class MainActivity extends ActionBarActivity {
         super.onSaveInstanceState(outState);
 
         // Save instance
-        outState.putLong(START_TICK,startTick);
-        outState.putLong(LAST_SUSPEND_TICK,(SystemClock.elapsedRealtime()));
     }
 
     @Override
@@ -102,13 +86,9 @@ public class MainActivity extends ActionBarActivity {
         doItButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Start timer for 30+ mins
-                // TODO make timer/did it button into its own activity
-
-                isTimerActive = true;
-                startTick = SystemClock.elapsedRealtime();
-                timeSpentChronometer.setBase(startTick);
-                timeSpentChronometer.start();
+                // Launch stopwatch activity
+                Intent intent = new Intent(MainActivity.this, StopwatchActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -145,7 +125,8 @@ public class MainActivity extends ActionBarActivity {
                 "Learn to compose music on fruityloops",
                 "Learn MIDI",
                 "Work on HTML5 version of this app",
-                "Work on this app"
+                "Work on this app",
+                "Add dotfiles to github"
         };
 
         int i = new Random().nextInt(allActivities.length);
