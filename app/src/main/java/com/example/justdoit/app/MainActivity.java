@@ -1,14 +1,12 @@
 package com.example.justdoit.app;
 
 import android.content.Intent;
-import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Chronometer;
 import android.widget.TextView;
 
 import java.util.Random;
@@ -29,11 +27,9 @@ public class MainActivity extends ActionBarActivity {
         suggestActivityButton = (Button) findViewById(R.id.suggestActivityButton);
         doItButton = (Button) findViewById(R.id.doItButton);
 
-
         // Set suggested activity to something random on load
         String s = getRandomSuggestedActivity();
         suggestedActivityTextView.setText(s);
-
 
         // Stuff specific to initial startup or restoration
         if( savedInstanceState == null ) {

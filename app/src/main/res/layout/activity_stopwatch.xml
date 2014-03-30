@@ -16,33 +16,39 @@
         />
 
     <Chronometer
+        android:text="@string/timeSpentChronometer"
+        android:id="@+id/timeSpentChronometer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="@string/timeSpentChronometer"
-        android:id="@+id/timeSpentChronometer"
         />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:text="@string/pauseButton"
-        android:id="@+id/pauseButton"
+        >
+
+        <Button
+            android:text="@string/pauseButton"
+            android:id="@+id/pauseButton"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
+
+        <Button
+            android:text="@string/didItButton"
+            android:id="@+id/didItButton"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
         />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:text="@string/didItButton"
-        android:id="@+id/didItButton"
-        />
+    </LinearLayout>
 
 
 
