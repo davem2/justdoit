@@ -4,5 +4,7 @@
     <string name="app_name">Just do it!</string>
     <string name="action_settings">Settings</string>
     <string name="suggestActivityButton">Something else..</string>
+    <string name="doItButton">DO IT!</string>
+    <string name="timeSpentChronometer">Doing it..</string>
 
 </resources>

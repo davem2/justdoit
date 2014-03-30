@@ -1,11 +1,13 @@
 package com.example.justdoit.app;
 
+import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.TextView;
 
 import java.util.Random;
@@ -13,8 +15,16 @@ import java.util.Random;
 
 public class MainActivity extends ActionBarActivity {
 
-    TextView suggestedActivityTextView;
-    Button suggestActivityButton;
+    private TextView suggestedActivityTextView;
+    private Button suggestActivityButton;
+    private Button doItButton;
+    private Chronometer timeSpentChronometer;
+
+    private boolean isTimerActive = false;
+    private static final String START_TICK = "START_TICK";
+    private static final String LAST_SUSPEND_TICK = "LAST_SUSPEND_TICK";
+    private long startTick = 0L;
+    private long lastSuspendTick = 0L;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +33,9 @@ public class MainActivity extends ActionBarActivity {
 
         suggestedActivityTextView = (TextView) findViewById(R.id.suggestedActivityTextView);
         suggestActivityButton = (Button) findViewById(R.id.suggestActivityButton);
+        doItButton = (Button) findViewById(R.id.doItButton);
+        timeSpentChronometer = (Chronometer) findViewById(R.id.timeSpentChronometer);
+
 
         // Set suggested activity to something random on load
         String s = getRandomSuggestedActivity();
@@ -32,19 +45,26 @@ public class MainActivity extends ActionBarActivity {
         // Stuff specific to initial startup or restoration
         if( savedInstanceState == null ) {
             // Just starting
+            isTimerActive = false;
         } else {
             // App is being restored
+            startTick = savedInstanceState.getLong(START_TICK);
+            lastSuspendTick = savedInstanceState.getLong(LAST_SUSPEND_TICK);
+            if( isTimerActive ) {
+                timeSpentChronometer.setBase(SystemClock.elapsedRealtime());
+                timeSpentChronometer.start();
+            }
         }
 
         setButtonOnClickListeners();
-
     }
 
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
         // Save instance
-        //outState.putDouble(KEY,value);
+        outState.putLong(START_TICK,startTick);
+        outState.putLong(LAST_SUSPEND_TICK,(SystemClock.elapsedRealtime()));
     }
 
     @Override
@@ -67,13 +87,28 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     private void setButtonOnClickListeners() {
+
         suggestActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Set suggested activity to something new
                 String s = getRandomSuggestedActivity();
                 suggestedActivityTextView.setText(s);
+            }
+        });
+
+        doItButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start timer for 30+ mins
+                // TODO make timer/did it button into its own activity
+
+                isTimerActive = true;
+                startTick = SystemClock.elapsedRealtime();
+                timeSpentChronometer.setBase(startTick);
+                timeSpentChronometer.start();
             }
         });
     }

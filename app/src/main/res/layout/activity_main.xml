@@ -27,4 +27,22 @@
         android:id="@+id/suggestActivityButton"
         />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/suggestedActivityTextView"
+        android:text="@string/doItButton"
+        android:id="@+id/doItButton"
+        />
+
+    <Chronometer
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/suggestedActivityTextView"
+        android:text="@string/timeSpentChronometer"
+        android:id="@+id/timeSpentChronometer"
+        />
+
+
 </RelativeLayout>
