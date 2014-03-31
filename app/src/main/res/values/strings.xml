@@ -8,6 +8,7 @@
     <string name="pauseButton">PAUSE</string>
     <string name="didItButton">DID IT!</string>
     <string name="timeSpentChronometer">Doing it..</string>
+    <string name="getToWork">Get to work!  Try to spend at least 30 mins on the activity.</string>
     <string name="title_activity_stopwatch">StopwatchActivity</string>
     <string name="hello_world">Hello world!</string>
 
