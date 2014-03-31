@@ -13,7 +13,6 @@ import java.util.Random;
 
 
 public class MainActivity extends ActionBarActivity {
-
     private TextView suggestedActivityTextView;
     private Button suggestActivityButton;
     private Button doItButton;
@@ -49,7 +48,6 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
@@ -67,9 +65,7 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     private void setButtonOnClickListeners() {
-
         suggestActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +86,6 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private String getRandomSuggestedActivity() {
-
         // TEMP for debug.. activities should be pulled from external source (flatfile? dropbox? webservice?)
         String allActivities[] = {
                 "Go for a walk in the woods",

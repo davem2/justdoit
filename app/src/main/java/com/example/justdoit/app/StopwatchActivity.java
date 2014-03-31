@@ -1,20 +1,16 @@
 package com.example.justdoit.app;
 
-import android.content.Intent;
 import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.Toast;
 
 
 public class StopwatchActivity extends ActionBarActivity {
-
     private Chronometer timeSpentChronometer;
     private Button pauseButton;
     private Button didItButton;
@@ -61,10 +57,8 @@ public class StopwatchActivity extends ActionBarActivity {
         outState.putBoolean(IS_TIMER_ACTIVE, isTimerActive);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.stopwatch, menu);
         return true;
@@ -83,23 +77,17 @@ public class StopwatchActivity extends ActionBarActivity {
     }
 
     private void setButtonOnClickListeners() {
-
         pauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if( isTimerActive ) {
                     isTimerActive = false;
                     ticksWhenStopped =  SystemClock.elapsedRealtime() - timeSpentChronometer.getBase();
-
                     pauseButton.setText(getString(R.string.unpauseButton));
-
                     timeSpentChronometer.stop();
-
                 } else {
                     isTimerActive = true;
-
                     pauseButton.setText(getString(R.string.pauseButton));
-
                     timeSpentChronometer.setBase(SystemClock.elapsedRealtime() - ticksWhenStopped);
                     timeSpentChronometer.start();
                 }
@@ -114,6 +102,4 @@ public class StopwatchActivity extends ActionBarActivity {
             }
         });
     }
-
-
 }
