@@ -86,8 +86,9 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private String getRandomSuggestedActivity() {
-        // TEMP for debug.. activities should be pulled from external source (flatfile? dropbox? webservice?)
+        // TODO: activities should be pulled from external source (flatfile? dropbox? webservice?)
         String allActivities[] = {
+                "Learn Origami",
                 "Go for a walk in the woods",
                 "Read a book",
                 "Work on closet shelf",
@@ -105,19 +106,27 @@ public class MainActivity extends ActionBarActivity {
                 "Work on scroll for lauren",
                 "Plaster work",
                 "Reschedule mulroy (~May 8th)",
-                "Set up personal website",
-                "Work on demo site for resume",
+                "Set up personal website, resume, projects, photography, art",
+                "Work on fake company website for resume",
+                "Work on dev company website",
                 "Work on android app",
                 "Work on iOS app",
                 "Clean room",
+                "Clean car",
+                "Build something with arduino",
+                "Do some gardening",
                 "Work on python project",
                 "Go take pictures",
+                "Drive somewhere you've never been and take pictures",
+                "Practice guitar",
                 "Learn a song on guitar",
+                "Compose a song on guitar",
                 "Learn to compose music on fruityloops",
                 "Learn MIDI",
                 "Work on HTML5 version of this app",
                 "Work on this app",
-                "Add dotfiles to github"
+                "Add dotfiles to github",
+                "Install arch 64bit"
         };
 
         int i = new Random().nextInt(allActivities.length);

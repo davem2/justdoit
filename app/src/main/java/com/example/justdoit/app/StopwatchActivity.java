@@ -1,3 +1,4 @@
+// TODO: Replace com.example in package name to something unique
 package com.example.justdoit.app;
 
 import android.os.SystemClock;
@@ -35,6 +36,8 @@ public class StopwatchActivity extends ActionBarActivity {
             isTimerActive = true;
             timeSpentChronometer.setBase(SystemClock.elapsedRealtime());
             timeSpentChronometer.start();
+
+            // TODO: Use alarm manager to schedule an alarm to go off in 30 minutes
 
         } else {
             // App is being restored
