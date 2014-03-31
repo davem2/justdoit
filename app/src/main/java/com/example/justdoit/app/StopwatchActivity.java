@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,13 +19,10 @@ public class StopwatchActivity extends ActionBarActivity {
     private Button pauseButton;
     private Button didItButton;
 
+    private static final String TICKS_WHEN_STOPPED = "TICKS_WHEN_STOPPED";
+    private static final String IS_TIMER_ACTIVE = "IS_TIMER_ACTIVE";
+    private long ticksWhenStopped = 0L;
     private boolean isTimerActive = false;
-    private static final String START_TICK = "START_TICK";
-    private static final String LAST_PAUSE_TICK = "LAST_PAUSE_TICK";
-    private static final String LAST_SUSPEND_TICK = "LAST_SUSPEND_TICK";
-    private long startTick = 0L;
-    private long lastPauseTick = 0L;
-    private long lastSuspendTick = 0L;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +37,13 @@ public class StopwatchActivity extends ActionBarActivity {
         if( savedInstanceState == null ) {
             // Just starting
             isTimerActive = true;
-            startTick = SystemClock.elapsedRealtime();
-            timeSpentChronometer.setBase(startTick);
+            timeSpentChronometer.setBase(SystemClock.elapsedRealtime());
             timeSpentChronometer.start();
 
         } else {
             // App is being restored
-            startTick = savedInstanceState.getLong(START_TICK);
-            lastSuspendTick = savedInstanceState.getLong(LAST_SUSPEND_TICK);
+            ticksWhenStopped = savedInstanceState.getLong(TICKS_WHEN_STOPPED);
+            isTimerActive = savedInstanceState.getBoolean(IS_TIMER_ACTIVE);
             if( isTimerActive ) {
                 timeSpentChronometer.setBase(SystemClock.elapsedRealtime());
                 timeSpentChronometer.start();
@@ -60,8 +57,8 @@ public class StopwatchActivity extends ActionBarActivity {
         super.onSaveInstanceState(outState);
 
         // Save instance
-        outState.putLong(START_TICK,startTick);
-        outState.putLong(LAST_SUSPEND_TICK, (SystemClock.elapsedRealtime()));
+        outState.putLong(TICKS_WHEN_STOPPED, ticksWhenStopped);
+        outState.putBoolean(IS_TIMER_ACTIVE, isTimerActive);
     }
 
 
@@ -92,15 +89,18 @@ public class StopwatchActivity extends ActionBarActivity {
             public void onClick(View v) {
                 if( isTimerActive ) {
                     isTimerActive = false;
-                    lastPauseTick = SystemClock.elapsedRealtime();
+                    ticksWhenStopped =  SystemClock.elapsedRealtime() - timeSpentChronometer.getBase();
+
+                    pauseButton.setText(getString(R.string.unpauseButton));
 
                     timeSpentChronometer.stop();
 
                 } else {
                     isTimerActive = true;
-                    long ticksSpentPaused = SystemClock.elapsedRealtime() - lastPauseTick;
 
-                    timeSpentChronometer.setBase(SystemClock.elapsedRealtime() - ticksSpentPaused);
+                    pauseButton.setText(getString(R.string.pauseButton));
+
+                    timeSpentChronometer.setBase(SystemClock.elapsedRealtime() - ticksWhenStopped);
                     timeSpentChronometer.start();
                 }
             }

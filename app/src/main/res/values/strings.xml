@@ -6,6 +6,7 @@
     <string name="suggestActivityButton">Something else..</string>
     <string name="doItButton">DO IT!</string>
     <string name="pauseButton">PAUSE</string>
+    <string name="unpauseButton">UNPAUSE</string>
     <string name="didItButton">DID IT!</string>
     <string name="timeSpentChronometer">Doing it..</string>
     <string name="getToWork">Get to work!  Try to spend at least 30 mins on the activity.</string>
