@@ -88,6 +88,8 @@ public class StopwatchActivity extends ActionBarActivity {
                     ticksWhenStopped =  SystemClock.elapsedRealtime() - timeSpentChronometer.getBase();
                     pauseButton.setText(getString(R.string.unpauseButton));
                     timeSpentChronometer.stop();
+
+                    // TODO: set "snooze" alarm for 5 mins in case user forgets app is paused
                 } else {
                     isTimerActive = true;
                     pauseButton.setText(getString(R.string.pauseButton));
@@ -102,6 +104,11 @@ public class StopwatchActivity extends ActionBarActivity {
             public void onClick(View v) {
                 isTimerActive = false;
                 timeSpentChronometer.stop();
+
+                // TODO: rename didItButton to "~quit early" until 30 minutes has passed then set to "DID IT!"
+
+                // TODO: record results for reporting feature?
+
             }
         });
     }
